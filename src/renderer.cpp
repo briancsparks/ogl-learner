@@ -115,7 +115,7 @@ void Renderer::render() {
 
 void Renderer::updateFPS() {
   m_fpsUpdateTimer += m_deltaTime;
-  
+
   if (m_fpsUpdateTimer >= 1.0f) {
     m_currentFPS = 1.0f / m_deltaTime;
     m_fpsUpdateTimer = 0.0f;
@@ -130,10 +130,10 @@ void Renderer::renderImGui() {
   ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_FirstUseEver);
   ImGui::SetNextWindowSize(ImVec2(200, 80), ImGuiCond_FirstUseEver);
   ImGui::Begin("Statistics", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-  
+
   ImGui::Text("FPS: %.1f", m_currentFPS);
   ImGui::Text("Frame Time: %.3f ms", m_deltaTime * 1000.0f);
-  
+
   ImGui::End();
 
   ImGui::Render();

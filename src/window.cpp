@@ -6,7 +6,7 @@ namespace ogl_learner {
 
 Window::Window(const std::string& title, int width, int height)
   : m_window(nullptr), m_glContext(nullptr), m_width(width), m_height(height), m_shouldClose(false) {
-  
+
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     throw std::runtime_error(SDL_GetError());
   }
@@ -52,7 +52,7 @@ Window::Window(const std::string& title, int width, int height)
   // Enable OpenGL features
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
-  
+
   spdlog::info("OpenGL Info:");
   spdlog::info("  Vendor: {}", glGetString(GL_VENDOR));
   spdlog::info("  Renderer: {}", glGetString(GL_RENDERER));
