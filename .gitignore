@@ -1,0 +1,66 @@
+# Build directories
+build/
+cmake-build-*/
+
+# IDE directories
+.idea/
+.vscode/
+.vs/
+
+# Environment files
+.env
+.env.local
+!.env.example
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+*.cmake
+!cmake/*.cmake
+Makefile
+*.make
+
+# Debug files
+*.dSYM/
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Tracy profiler output
+*.tracy
