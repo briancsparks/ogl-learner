@@ -1,3 +1,5 @@
+.venv/
+
 # Build directories
 build/
 cmake-build-*/
