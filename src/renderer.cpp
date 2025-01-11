@@ -3,7 +3,7 @@
 #include <imgui_impl_sdl3.h>
 #include <imgui_impl_opengl3.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <tracy/Tracy.hpp>
+//#include <tracy/Tracy.hpp>
 
 namespace ogl_learner {
 
@@ -48,10 +48,7 @@ Renderer& Renderer::operator=(Renderer&& other) noexcept {
 
 void Renderer::init() {
   // Initialize shader
-  m_shader = std::make_unique<Shader>(
-    "src/shaders/tetrahedron.vert",
-    "src/shaders/tetrahedron.frag"
-  );
+  m_shader = std::make_unique<Shader>();
 
   // Initialize tetrahedron
   m_tetrahedron = std::make_unique<Tetrahedron>();
@@ -88,7 +85,7 @@ void Renderer::setupImGui() {
 }
 
 void Renderer::render() {
-  ZoneScoped;  // Tracy profiling scope
+//  ZoneScoped;  // Tracy profiling scope
 
   float currentFrame = SDL_GetTicks() / 1000.0f;
   m_deltaTime = currentFrame - m_lastFrame;

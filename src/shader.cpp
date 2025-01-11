@@ -6,35 +6,37 @@
 
 namespace ogl_learner {
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath) : m_programId(0) {
-  std::string vertexCode;
-  std::string fragmentCode;
-  std::ifstream vShaderFile;
-  std::ifstream fShaderFile;
+// ----- vertex shader -----
+const char* vShaderCode = R"(
+#version 410 core
 
-  vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-  fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+layout (location = 0) in vec3 aPos;
+layout (location = 1) in vec3 aColor;
 
-  try {
-    vShaderFile.open(vertexPath);
-    fShaderFile.open(fragmentPath);
-    std::stringstream vShaderStream, fShaderStream;
+out vec3 ourColor;
 
-    vShaderStream << vShaderFile.rdbuf();
-    fShaderStream << fShaderFile.rdbuf();
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 
-    vShaderFile.close();
-    fShaderFile.close();
+void main() {
+  gl_Position = projection * view * model * vec4(aPos, 1.0);
+  ourColor = aColor;
+})";
 
-    vertexCode = vShaderStream.str();
-    fragmentCode = fShaderStream.str();
-  } catch (std::ifstream::failure& e) {
-    spdlog::error("Failed to read shader files: {}", e.what());
-    return;
-  }
+// ----- fragment shader -----
+const char* fShaderCode = R"(
+#version 410 core
 
-  const char* vShaderCode = vertexCode.c_str();
-  const char* fShaderCode = fragmentCode.c_str();
+in vec3 ourColor;
+out vec4 FragColor;
+
+void main() {
+  FragColor = vec4(ourColor, 1.0);
+})";
+
+
+Shader::Shader(/*const char* vertexPath, const char* fragmentPath*/) : m_programId(0) {
 
   GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(vertex, 1, &vShaderCode, NULL);

@@ -69,12 +69,22 @@ endif()
 # spdlog
 find_package(spdlog QUIET)
 if(NOT spdlog_FOUND)
+  set(SPDLOG_BUILD_SHARED ON)
+  set(SPDLOG_ENABLE_PCH OFF)
+  set(SPDLOG_NO_TLS ON)
+
   FetchContent_Declare(
     spdlog
     GIT_REPOSITORY https://github.com/gabime/spdlog.git
     GIT_TAG v1.12.0
   )
   FetchContent_MakeAvailable(spdlog)
+
+  target_compile_definitions(spdlog PUBLIC
+    SPDLOG_SHARED_LIB
+    SPDLOG_COMPILED_LIB
+    SPDLOG_NO_TLS
+  )
 endif()
 
 # stb

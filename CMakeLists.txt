@@ -32,6 +32,10 @@ add_library(${PROJECT_NAME} SHARED
   src/tetrahedron.cpp
   src/window.cpp
 )
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+    ENABLE_EXPORTS ON
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
   ${PROJECT_SOURCE_DIR}/src/include

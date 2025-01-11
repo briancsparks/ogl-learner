@@ -10,33 +10,33 @@ SCENARIO("Working with OpenGL shaders", "[shader]") {
 
     WHEN("Loading vertex and fragment shaders") {
       THEN("The shader program should be created successfully") {
-        REQUIRE_NOTHROW(ogl_learner::Shader("src/shaders/tetrahedron.vert", "src/shaders/tetrahedron.frag"));
+        REQUIRE_NOTHROW(ogl_learner::Shader());
       }
     }
 
     WHEN("Setting uniform values") {
-      ogl_learner::Shader shader("src/shaders/tetrahedron.vert", "src/shaders/tetrahedron.frag");
+      ogl_learner::Shader shader;
 
       THEN("All uniform types should be set without errors") {
-        REQUIRE_NOTHROW({
+        CHECK_NOTHROW([&]() {
           shader.use();
           shader.setBool("testBool", true);
           shader.setInt("testInt", 42);
           shader.setFloat("testFloat", 3.14f);
           shader.setVec3("testVec3", glm::vec3(1.0f, 2.0f, 3.0f));
           shader.setMat4("testMat4", glm::mat4(1.0f));
-        });
+        }());
       }
     }
 
     WHEN("Moving a shader object") {
-      ogl_learner::Shader original("src/shaders/tetrahedron.vert", "src/shaders/tetrahedron.frag");
-      
+      ogl_learner::Shader original;
+
       THEN("The shader should be movable") {
-        REQUIRE_NOTHROW({
+        CHECK_NOTHROW([&]() {
           ogl_learner::Shader moved = std::move(original);
           moved.use();  // Should work with moved object
-        });
+        }());
       }
     }
   }

@@ -7,7 +7,7 @@ namespace ogl_learner {
 Window::Window(const std::string& title, int width, int height)
   : m_window(nullptr), m_glContext(nullptr), m_width(width), m_height(height), m_shouldClose(false) {
 
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+  if (!SDL_Init(SDL_INIT_VIDEO)) {
     throw std::runtime_error(SDL_GetError());
   }
 
@@ -40,7 +40,7 @@ Window::Window(const std::string& title, int width, int height)
 
   // Initialize GLAD
   if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) {
-    SDL_GL_DeleteContext(m_glContext);
+    SDL_GL_DestroyContext(m_glContext);
     SDL_DestroyWindow(m_window);
     SDL_Quit();
     throw std::runtime_error("Failed to initialize GLAD");
@@ -54,14 +54,14 @@ Window::Window(const std::string& title, int width, int height)
   glEnable(GL_CULL_FACE);
 
   spdlog::info("OpenGL Info:");
-  spdlog::info("  Vendor: {}", glGetString(GL_VENDOR));
-  spdlog::info("  Renderer: {}", glGetString(GL_RENDERER));
-  spdlog::info("  Version: {}", glGetString(GL_VERSION));
+  spdlog::info("  Vendor: {}", (char const *)glGetString(GL_VENDOR));
+  spdlog::info("  Renderer: {}", (char const *)glGetString(GL_RENDERER));
+  spdlog::info("  Version: {}", (char const *)glGetString(GL_VERSION));
 }
 
 Window::~Window() {
   if (m_glContext) {
-    SDL_GL_DeleteContext(m_glContext);
+    SDL_GL_DestroyContext(m_glContext);
   }
   if (m_window) {
     SDL_DestroyWindow(m_window);
@@ -82,7 +82,7 @@ Window::Window(Window&& other) noexcept
 Window& Window::operator=(Window&& other) noexcept {
   if (this != &other) {
     if (m_glContext) {
-      SDL_GL_DeleteContext(m_glContext);
+      SDL_GL_DestroyContext(m_glContext);
     }
     if (m_window) {
       SDL_DestroyWindow(m_window);
@@ -123,7 +123,7 @@ void Window::pollEvents() {
 }
 
 void Window::setVSync(bool enabled) {
-  if (SDL_GL_SetSwapInterval(enabled ? 1 : 0) < 0) {
+  if (!SDL_GL_SetSwapInterval(enabled ? 1 : 0)) {
     spdlog::warn("Failed to set VSync: {}", SDL_GetError());
   }
 }

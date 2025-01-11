@@ -18,12 +18,12 @@ protected:
 };
 
 TEST_F(ShaderTest, LoadShader) {
-  EXPECT_NO_THROW(ogl_learner::Shader shader("src/shaders/tetrahedron.vert", "src/shaders/tetrahedron.frag"));
+  EXPECT_NO_THROW(ogl_learner::Shader shader);
 }
 
 TEST_F(ShaderTest, UniformOperations) {
-  ogl_learner::Shader shader("src/shaders/tetrahedron.vert", "src/shaders/tetrahedron.frag");
-  
+  ogl_learner::Shader shader;
+
   // These operations should not throw
   EXPECT_NO_THROW({
     shader.use();

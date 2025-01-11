@@ -1,7 +1,7 @@
 #include "ogl-learner/renderer.hpp"
 #include "ogl-learner/window.hpp"
 #include <spdlog/spdlog.h>
-#include <tracy/Tracy.hpp>
+//#include <tracy/Tracy.hpp>
 #include <memory>
 #include <stdexcept>
 
@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 
     // Main loop
     while (!renderer.shouldClose()) {
-      FrameMark;  // Tracy frame marker
+//      FrameMark;  // Tracy frame marker
       renderer.render();
     }
 

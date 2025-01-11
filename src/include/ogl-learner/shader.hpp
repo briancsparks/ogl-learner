@@ -9,8 +9,7 @@ namespace ogl_learner {
 
 class Shader {
 public:
-  Shader() = delete;
-  Shader(const char* vertexPath, const char* fragmentPath);
+  Shader();
   ~Shader();
 
   // Delete copy constructor and assignment operator
